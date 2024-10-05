@@ -1,0 +1,9 @@
+  - changeSet:
+      id: create-user-roles-table
+      author: gesalas
+      labels: squad-1
+      changes:
+        - sqlFile:
+            path:  schema/tables/user_roles_tb.sql
+            relativeToChangelogFile: true
+
