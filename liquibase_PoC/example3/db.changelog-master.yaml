@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: phases/phase15-sprint-1/changelog-phase15-sprint-1.yaml
+      relativeToChangelogFile: true

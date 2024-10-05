@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users-table
+      author: gesalas
+      changes:
+        - sqlFile:
+            path: schema/tables/users_tb.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: alter_tb_user_add_first_name
+      author: gesalas
+      changes:
+        - sqlFile:
+            path: schema/tables/alter_tb_user_add_first_name.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: create-roles-table
+      author: gesalas
+      changes:
+        - sqlFile:
+            path:  schema/tables/roles_tb.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: create-user-roles-table
+      author: gesalas
+      changes:
+        - sqlFile:
+            path:  schema/tables/user_roles_tb.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: create-user-roles-view
+      author: gesalas
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: schema/views/user_roles_view.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: create-insert-user-fn
+      author: gesalas
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: schema/functions/fn_insert_or_update_user.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: true
+
+
