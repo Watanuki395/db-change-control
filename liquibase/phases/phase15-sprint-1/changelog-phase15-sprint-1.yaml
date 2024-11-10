@@ -34,3 +34,5 @@ databaseChangeLog:
         - sqlFile:
             path:  squad1/tables/alter_roles_tb_adding_description_col.sql
             relativeToChangelogFile: true
+
+            
