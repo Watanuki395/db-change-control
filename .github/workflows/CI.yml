@@ -3,7 +3,7 @@ name: Liquibase CI/CD
 on:
   push:
     branches:
-      - main
+      - liquibase
 
 jobs:
   validate:
