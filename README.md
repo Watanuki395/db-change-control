@@ -90,11 +90,11 @@ sql/
 
 
 [sqlfluff]
-dialect = postgres           # Especifica el dialecto SQL usado (PostgreSQL)
-max_line_length = 120        # Longitud máxima de línea de código
-exclude_rules = L009         # Excluye reglas específicas que no son relevantes
-tab_space_size = 4           # Tamaño de la tabulación (4 espacios)
-indent_unit = space          # Define el uso de espacios para la indentación
+dialect = postgres           
+max_line_length = 120        
+exclude_rules = L009        
+tab_space_size = 4          
+indent_unit = space        
 
 
 

@@ -26,13 +26,13 @@ databaseChangeLog:
         - tagDatabase:
             tag: phase15-sprint1
             
-  - changeSet:
-      id: alter-roles-tb-adding-description-col
-      author: gesalas
-      labels: squad-1
-      changes:
-        - sqlFile:
-            path:  squad1/tables/alter_roles_tb_adding_description_col.sql
-            relativeToChangelogFile: true
+#   - changeSet:
+#       id: alter-roles-tb-adding-description-col
+#       author: gesalas
+#       labels: squad-1
+#       changes:
+#         - sqlFile:
+#             path:  squad1/tables/alter_roles_tb_adding_description_col.sql
+#             relativeToChangelogFile: true
 
             
