@@ -47,4 +47,4 @@ jobs:
           LIQUIBASE_COMMAND_USERNAME: ${{ secrets.TEST_DB_USER }}
           LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         run: |
-          /usr/local/bin/liquibase/liquibase --changeLogFile=changelog.yaml update
+          /usr/local/bin/liquibase/liquibase --changeLogFile=db.changelog-master.yaml update
