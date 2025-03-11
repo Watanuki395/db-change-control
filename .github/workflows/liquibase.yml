@@ -1,0 +1,51 @@
+name: Liquibase CI/CD
+
+on:
+  workflow_run:
+    workflows: ["SQLFluff Linter"]
+    types:
+      - completed
+
+jobs:
+  liquibase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Liquibase
+        run: |
+          # Eliminar cualquier versión previa
+          sudo rm -rf /usr/local/bin/liquibase
+
+          # Descargar y extraer el binario correcto
+          wget https://github.com/liquibase/liquibase/releases/download/v4.31.1/liquibase-4.31.1.zip
+          unzip liquibase-4.31.1.zip -d liquibase
+
+          # Mover a /usr/local/bin
+          sudo mv liquibase /usr/local/bin/liquibase
+
+          # Agregar permisos de ejecución
+          sudo chmod +x /usr/local/bin/liquibase/liquibase
+
+          # Agregar Liquibase al PATH
+          echo "export PATH=/usr/local/bin/liquibase:\$PATH" >> ~/.bashrc
+          source ~/.bashrc
+
+          # Verificar instalación
+          /usr/local/bin/liquibase/liquibase --version
+
+      - name: Run Liquibase Migrations
+        env:
+          LIQUIBASE_COMMAND_URL: ${{ secrets.TEST_DB_URL }}
+          LIQUIBASE_COMMAND_USERNAME: ${{ secrets.TEST_DB_USER }}
+          LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+        run: |
+          /usr/local/bin/liquibase/liquibase --changeLogFile=db.changelog-master.yaml update
