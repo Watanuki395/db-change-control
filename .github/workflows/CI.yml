@@ -12,9 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Liquibase
         run: |
-          curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
+          wget https://github.com/liquibase/liquibase/releases/download/v4.13.0/liquibase-4.13.0.tar.gz
+          tar -xzf liquibase-4.13.0.tar.gz
           export PATH="$PATH:$PWD/liquibase"
-      - name: Validate Database (Test)
+      - name: Deploy to Database (TEST)
         env:
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}

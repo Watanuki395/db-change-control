@@ -6,11 +6,13 @@ on:
       - main
       - development
       - staging
+      - liquibase
   pull_request:
     branches:
       - main
       - development
       - staging
+      - liquibase
 
 jobs:
   sql_lint:
