@@ -2,11 +2,11 @@
 
 CREATE OR REPLACE VIEW user_roles_view AS
 SELECT
-    u.user_id,
-    u.username,
-    u.first_name,
-    r.role_name,
-    r.description
-FROM users_tb u
-JOIN user_roles_tb ur ON u.user_id = ur.user_id
-JOIN roles_tb r ON ur.role_id = r.role_id;
+  us.user_id,
+  us.username,
+  us.first_name,
+  ro.role_name,
+  ro.description
+FROM users_tb AS us
+  INNER JOIN user_roles_tb AS ur ON us.user_id = ur.user_id
+  INNER JOIN roles_tb AS ro ON ur.role_id = ro.role_id;

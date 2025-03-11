@@ -1,2 +1,2 @@
 ALTER TABLE clients_tb
-ADD COLUMN description varchar(255);
+ADD COLUMN description VARCHAR(255);
