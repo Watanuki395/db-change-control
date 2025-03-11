@@ -21,17 +21,17 @@ databaseChangeLog:
             relativeToChangelogFile: true
         - tagDatabase:
             tag: phase16-sprint2    
-  - changeSet:
-      id: create-view-user-roles
-      author: gesalas
-      labels: squad-1
-      context: development
-      runOnChange: true
-      changes:
-        - sqlFile:
-            path: ../../mutables/views/v_user_roles.sql
-            relativeToChangelogFile: true
-            splitStatements: false
-            stripComments: true
-        - tagDatabase:
-            tag: phase16-sprint2
+  # - changeSet:
+  #     id: create-view-user-roles
+  #     author: gesalas
+  #     labels: squad-1
+  #     context: development
+  #     runOnChange: true
+  #     changes:
+  #       - sqlFile:
+  #           path: ../../mutables/views/v_user_roles.sql
+  #           relativeToChangelogFile: true
+  #           splitStatements: false
+  #           stripComments: true
+  #       - tagDatabase:
+  #           tag: phase16-sprint2
