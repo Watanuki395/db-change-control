@@ -21,9 +21,10 @@ jobs:
 
       - name: Install Liquibase
         run: |
-          sudo apt update && sudo apt install -y curl
-          curl -s https://packagecloud.io/install/repositories/datical/liquibase/script.deb.sh | sudo bash
-          sudo apt install -y liquibase
+          wget https://github.com/liquibase/liquibase/releases/download/v4.31.1/liquibase-4.31.1.tar.gz
+          tar -xvzf liquibase-4.31.1.tar.gz
+          sudo mv liquibase /usr/local/bin/
+          sudo ln -s /usr/local/bin/liquibase/liquibase /usr/local/bin/liquibase
           liquibase --version
 
       - name: Run Liquibase Migrations
