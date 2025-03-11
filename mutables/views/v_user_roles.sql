@@ -1,6 +1,6 @@
 -- user_roles_view.sql
 
-CREATE OR REPLACE VIEW user_roles_view AS
+CREATE OR REPLACE VIEW v_user_roles_view AS
 SELECT
   us.user_id,
   us.username,

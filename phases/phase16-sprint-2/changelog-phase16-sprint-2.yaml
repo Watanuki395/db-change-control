@@ -1,9 +1,14 @@
   - changeSet:
-      id: create-user-roles-table
+      id: create-insert-user-fn
       author: gesalas
       labels: squad-1
+      context: development
+      runOnChange: true
       changes:
         - sqlFile:
-            path:  schema/tables/user_roles_tb.sql
+            path: ../../mutables/views/v_user_roles.sql
             relativeToChangelogFile: true
-
+            splitStatements: false
+            stripComments: true
+        - tagDatabase:
+            tag: phase16-sprint2
