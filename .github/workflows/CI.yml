@@ -21,23 +21,18 @@ jobs:
 
       - name: Install Liquibase
         run: |
-          # Eliminar versiones anteriores si existen
-          if command -v liquibase &> /dev/null; then
-            sudo rm -rf /usr/local/bin/liquibase
-          fi
+          # Eliminar versión anterior si existe
+          sudo rm -f /usr/local/bin/liquibase
 
           # Descargar e instalar Liquibase
           wget https://github.com/liquibase/liquibase/releases/download/v4.31.1/liquibase-4.31.1.tar.gz
           tar -xvzf liquibase-4.31.1.tar.gz
-          sudo mv liquibase /usr/local/bin/
+
+          # Mover el binario directamente a /usr/local/bin
+          sudo mv liquibase /usr/local/bin/liquibase
 
           # Asegurar permisos de ejecución
-          sudo chmod +x /usr/local/bin/liquibase/liquibase
-
-          # Crear enlace simbólico solo si no existe
-          if [ ! -f /usr/local/bin/liquibase ]; then
-            sudo ln -s /usr/local/bin/liquibase/liquibase /usr/local/bin/liquibase
-          fi
+          sudo chmod +x /usr/local/bin/liquibase
 
           # Verificar la instalación
           liquibase --version
