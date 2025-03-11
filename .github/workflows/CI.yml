@@ -6,7 +6,7 @@ on:
       - liquibase
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,8 +14,9 @@ jobs:
         run: |
           wget https://github.com/liquibase/liquibase/releases/download/v4.13.0/liquibase-4.13.0.tar.gz
           tar -xzf liquibase-4.13.0.tar.gz
-          export PATH="$PATH:$PWD/liquibase"
-      - name: Deploy to Database (TEST)
+          export PATH="$PATH:$PWD/liquibase-4.13.0"
+          liquibase --version
+      - name: validate Database (Test)
         env:
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
@@ -23,22 +24,24 @@ jobs:
         run: |
           liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD validate
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   needs: validate
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Setup Liquibase
-  #       run: |
-  #         curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
-  #         export PATH="$PATH:$PWD/liquibase"
-  #     - name: Apply Changes (Test Database)
-  #       env:
-  #         DB_URL: ${{ secrets.TEST_DB_URL }}
-  #         DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
-  #         DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-  #       run: |
-  #         liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD update
+  deploy:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Liquibase
+        run: |
+          wget https://github.com/liquibase/liquibase/releases/download/v4.13.0/liquibase-4.13.0.tar.gz
+          tar -xzf liquibase-4.13.0.tar.gz
+          export PATH="$PATH:$PWD/liquibase-4.13.0"
+          liquibase --version
+      - name: Apply Changes (Test Database)
+        env:
+          DB_URL: ${{ secrets.TEST_DB_URL }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+        run: |
+          liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD update
 
   # deploy:
   #   runs-on: ubuntu-latest
