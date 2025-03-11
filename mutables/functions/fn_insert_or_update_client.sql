@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION FN_INSERT_OR_UPDATE_CLIENT(
   _id INT,
   _first_name VARCHAR(50),
   _last_name VARCHAR(50),
-  _email VARCHAR(100),
+  _email VARCHAR(99),
   _phone VARCHAR(15)
 ) RETURNS VOID AS
 $$
