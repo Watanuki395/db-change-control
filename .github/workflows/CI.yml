@@ -6,7 +6,7 @@ on:
       - liquibase
 
 jobs:
-  validate:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,31 +15,43 @@ jobs:
           curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
           export PATH="$PATH:$PWD/liquibase"
       - name: Validate Database (Test)
+        env:
+          DB_URL: ${{ secrets.TEST_DB_URL }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         run: |
-          liquibase --url=jdbc:postgresql://test-db-host:5432/testdb --username=myuser --password=mypassword validate
+          liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD validate
 
-  test:
-    runs-on: ubuntu-latest
-    needs: validate
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Liquibase
-        run: |
-          curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
-          export PATH="$PATH:$PWD/liquibase"
-      - name: Apply Changes (Test Database)
-        run: |
-          liquibase --url=jdbc:postgresql://test-db-host:5432/testdb --username=myuser --password=mypassword update
+  # test:
+  #   runs-on: ubuntu-latest
+  #   needs: validate
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Setup Liquibase
+  #       run: |
+  #         curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
+  #         export PATH="$PATH:$PWD/liquibase"
+  #     - name: Apply Changes (Test Database)
+  #       env:
+  #         DB_URL: ${{ secrets.TEST_DB_URL }}
+  #         DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+  #         DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+  #       run: |
+  #         liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD update
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Liquibase
-        run: |
-          curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
-          export PATH="$PATH:$PWD/liquibase"
-      - name: Apply Changes (Production Database)
-        run: |
-          liquibase --url=jdbc:postgresql://prod-db-host:5432/proddb --username=myuser --password=mypassword update
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: test
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Setup Liquibase
+  #       run: |
+  #         curl -s https://download.liquibase.org/liquibase-4.13.0.tar.gz | tar xz
+  #         export PATH="$PATH:$PWD/liquibase"
+  #     - name: Apply Changes (Production Database)
+  #       env:
+  #         DB_URL: ${{ secrets.PROD_DB_URL }}
+  #         DB_USERNAME: ${{ secrets.PROD_DB_USERNAME }}
+  #         DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+  #       run: |
+  #         liquibase --url=$DB_URL --username=$DB_USERNAME --password=$DB_PASSWORD update
