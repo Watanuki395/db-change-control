@@ -1,0 +1,40 @@
+name: SQL lint check
+
+on:
+  push:
+    branches:
+      - main
+      - development
+      - staging
+  pull_request:
+    branches:
+      - main
+      - development
+      - staging
+
+jobs:
+  sql_lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout SQL code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.12
+
+    - name: Install dependencies
+      run: |
+        python3 -m venv myenv
+        source myenv/bin/activate
+        pip install poetry
+        poetry lock
+        poetry install --no-root
+
+    - name: Lint SQL files with SQLFluff
+      run: |
+        source myenv/bin/activate
+        sqlfluff lint --config .sqlfluff .
