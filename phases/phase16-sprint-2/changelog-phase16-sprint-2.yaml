@@ -1,3 +1,4 @@
+databaseChangeLog:    
   - changeSet:
       id: create-view-user-roles
       author: gesalas
