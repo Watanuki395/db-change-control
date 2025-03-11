@@ -20,7 +20,18 @@ databaseChangeLog:
             path:  squad1/tables/users_tb.sql
             relativeToChangelogFile: true
         - tagDatabase:
-            tag: phase16-sprint2    
+            tag: phase16-sprint2 
+  - changeSet:
+      id: create-user-roles-table
+      author: gesalas
+      labels: squad-1
+      context: development
+      changes:
+        - sqlFile:
+            path:  squad1/tables/user_roles_tb.sql
+            relativeToChangelogFile: true
+        - tagDatabase:
+            tag: phase16-sprint2     
   # - changeSet:
   #     id: create-view-user-roles
   #     author: gesalas
