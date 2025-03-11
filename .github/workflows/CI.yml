@@ -21,10 +21,25 @@ jobs:
 
       - name: Install Liquibase
         run: |
+          # Eliminar versiones anteriores si existen
+          if command -v liquibase &> /dev/null; then
+            sudo rm -rf /usr/local/bin/liquibase
+          fi
+
+          # Descargar e instalar Liquibase
           wget https://github.com/liquibase/liquibase/releases/download/v4.31.1/liquibase-4.31.1.tar.gz
           tar -xvzf liquibase-4.31.1.tar.gz
           sudo mv liquibase /usr/local/bin/
-          sudo ln -s /usr/local/bin/liquibase/liquibase /usr/local/bin/liquibase
+
+          # Asegurar permisos de ejecución
+          sudo chmod +x /usr/local/bin/liquibase/liquibase
+
+          # Crear enlace simbólico solo si no existe
+          if [ ! -f /usr/local/bin/liquibase ]; then
+            sudo ln -s /usr/local/bin/liquibase/liquibase /usr/local/bin/liquibase
+          fi
+
+          # Verificar la instalación
           liquibase --version
 
       - name: Run Liquibase Migrations
@@ -33,4 +48,4 @@ jobs:
           LIQUIBASE_COMMAND_USERNAME: ${{ secrets.TEST_DB_USER }}
           LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         run: |
-          liquibase --changeLogFile=changelog.yaml update
+          liquibase update --changeLogFile=changelog.yaml
