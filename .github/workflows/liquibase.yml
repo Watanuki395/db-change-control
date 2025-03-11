@@ -1,9 +1,10 @@
 name: Liquibase CI/CD
 
 on:
-  push:
-    branches:
-      - liquibase
+  workflow_run:
+    workflows: ["SQLFluff Linter"]
+    types:
+      - completed
 
 jobs:
   liquibase:

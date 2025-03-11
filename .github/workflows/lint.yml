@@ -1,4 +1,4 @@
-name: SQL lint check
+name: SQLFluff Linter
 
 on:
   push:
