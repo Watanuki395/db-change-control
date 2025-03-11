@@ -21,9 +21,9 @@ jobs:
 
       - name: Install Liquibase
         run: |
-          wget https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz
-          tar -xvzf liquibase-4.27.0.tar.gz
-          sudo mv liquibase /usr/local/bin/
+          sudo apt update && sudo apt install -y curl
+          curl -s https://packagecloud.io/install/repositories/datical/liquibase/script.deb.sh | sudo bash
+          sudo apt install -y liquibase
           liquibase --version
 
       - name: Run Liquibase Migrations
@@ -33,4 +33,3 @@ jobs:
           LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         run: |
           liquibase --changeLogFile=changelog.yaml update
-  
