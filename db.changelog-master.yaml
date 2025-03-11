@@ -3,6 +3,6 @@ databaseChangeLog:
       file: phases/phase15-sprint-1/changelog-phase15-sprint-1.yaml
       relativeToChangelogFile: true
 
-  - include:
-      file: phases/phase16-sprint-2/changelog-phase16-sprint-2.yaml
-      relativeToChangelogFile: true
+#   - include:
+#       file: phases/phase16-sprint-2/changelog-phase16-sprint-2.yaml
+#       relativeToChangelogFile: true

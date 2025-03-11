@@ -12,7 +12,7 @@ databaseChangeLog:
             tag: phase16-sprint2
   - changeSet:
       id: create-users-table
-      author: gesalas
+      author: admontoya
       labels: squad-1
       context: development
       changes:
