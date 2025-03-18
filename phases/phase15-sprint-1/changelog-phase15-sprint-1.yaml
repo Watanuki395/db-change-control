@@ -11,20 +11,20 @@ databaseChangeLog:
         - tagDatabase:
             tag: phase15-sprint1
 
-  - changeSet:
-      id: create-insert-user-fn
-      author: johnsmith
-      labels: squad-2
-      context: development
-      runOnChange: true
-      changes:
-        - sqlFile:
-            path: ../../mutables/functions/fn_insert_or_update_client.sql
-            relativeToChangelogFile: true
-            splitStatements: false
-            stripComments: true
-        - tagDatabase:
-            tag: phase15-sprint1
+#   - changeSet:
+#       id: create-insert-user-fn
+#       author: johnsmith
+#       labels: squad-2
+#       context: development
+#       runOnChange: true
+#       changes:
+#         - sqlFile:
+#             path: ../../mutables/functions/fn_insert_or_update_client.sql
+#             relativeToChangelogFile: true
+#             splitStatements: false
+#             stripComments: true
+#         - tagDatabase:
+#             tag: phase15-sprint1
             
 #   - changeSet:
 #       id: alter-roles-tb-adding-description-col
